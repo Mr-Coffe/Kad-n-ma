@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Mart Dünya Kadınlar Günü</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="flowerCanvas" width="600" height="800"></canvas>
+
+    <script>
+        const canvas = document.getElementById("flowerCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Çiçek çizme fonksiyonu
+        function drawFlower(x, y, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+
+            // Çiçek yaprakları
+            for (let i = 0; i < 36; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(50, 0);
+                ctx.lineTo(50, 50);
+                ctx.lineTo(0, 50);
+                ctx.closePath();
+                ctx.stroke();
+                ctx.rotate((Math.PI / 180) * 10);
+            }
+
+            // Çiçek sapı
+            ctx.beginPath();
+            ctx.moveTo(0, 100);
+            ctx.lineTo(0, 250);
+            ctx.strokeStyle = "green";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // Buket çizme fonksiyonu
+        function drawBouquet() {
+            const colors = ["red", "orange", "yellow", "pink", "magenta", "purple", "blue", "white"];
+            const positions = [
+                [-200, 0], [-100, 50], [0, 0], [100, 50],
+                [-150, -100], [-50, -50], [50, -100], [150, -50]
+            ];
+
+            positions.forEach((pos, index) => {
+                drawFlower(pos[0] + canvas.width / 2, pos[1] + canvas.height / 2, colors[index]);
+            });
+        }
+
+        // Mesaj yazma fonksiyonu
+        function writeMessage() {
+            ctx.font = "bold 18px Arial";
+            ctx.fillStyle = "pink";
+            ctx.textAlign = "left";
+            ctx.fillText("Bu çiçekler çok güzel ama en güzeli ve en değerlisi sensin Juliet'immm", 20, 50);
+        }
+
+        // Ana fonksiyon
+        function main() {
+            drawBouquet();
+            writeMessage();
+        }
+
+        // Programı çalıştır
+        main();
+    </script>
+</body>
+</html>
